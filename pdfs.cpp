@@ -36,8 +36,8 @@ double pdf::get_loglikelihood(double theta) {
         double logllh = 0.0;
         for(int i=0; i<sample.size(); i++) { 
 		//std::cout << sample.at(i) << " ";
-		//if(get_pdf(sample.at(i), theta)==0)
-			//std::cout << "WTF " << sample.at(i) << " " << theta << " ++++++++++++++++++++++++" <<std::endl;
+		if(get_pdf(sample.at(i), theta)==0)
+			std::cout << "WTF " << sample.at(i) << " " << theta << " ++++++++++++++++++++++++" <<std::endl;
 		double val = get_pdf(sample.at(i), theta);
 		//if(val)
                 logllh+=log(val);
@@ -58,6 +58,8 @@ void pdf::generate_sample(int size, double theta) {
 	boost::variate_generator< boost::random::mt19937&, boost::uniform_real<> > sampler(gen, unif);
 	for(int i=0;i<size;i++) {
 		sample.push_back(sampler());
-		//std::cout << sample.at(i) << std::endl;
+		//std::cout << sample.at(i) << " ";
 	}
+	//std::cout << std::endl;
+	
 }

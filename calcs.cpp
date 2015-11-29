@@ -8,10 +8,15 @@ namespace calcs {
 
 		// estimate "width" of likelihood from 2nd derivative of log-llh
 		// define range of integration from -5 to +5 std-deviations (or bounds or parameter space)
-		double h=1.e-5;
+		double h=1.e-6;
 		double d2logl = this_pdf.get_loglikelihood(theta+h) - 2. * this_pdf.get_loglikelihood(theta) + this_pdf.get_loglikelihood(theta-h);
 		d2logl/=h*h;
 		double stddev = sqrt(1./d2logl);	
+
+		// catch cases where stddev evaluates to 0
+		if(!stddev)
+			stddev = 5.;
+
 		//std::cout << "std: " << stddev << std::endl;
 		if(theta + 5*stddev < up)
 			up = theta + 5*stddev;
@@ -37,9 +42,9 @@ namespace calcs {
 			//std::cout << "pdf:" << this_pdf.get_loglikelihood(theta) << std::endl;
 			r += this_pdf.get_loglikelihood(theta) - log(norm);
 		}
+		//std::cout << r << std::endl;
 		//std::cout << r/m << std::endl;
-		return exp(r/m);
-		//return 0.;
+		return exp(r/m);	
 	}
 	
 }
