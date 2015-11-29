@@ -3,50 +3,58 @@
 // pdf for unif(theta, theta^2)
 
 pdf::pdf(double low, double high) {
-	init = false;
 	par_high = high;
 	par_low = low;
 }
 
-void pdf::set_parameter(double val) {
-	init = true;
-	par_value = val;
-	x_low = val;
-	x_high = val * val;
-}
-
-double pdf::get_pdf(double x) {
-	// depends on theta through support
+double pdf::get_pdf(double x, double theta) {
+	double x_low = theta;
+	double x_high = theta*theta;
 	if(x <= x_high && x >= x_low)
 		return 1./(x_high-x_low);
-	else 
+	else {
+		std::cout << x << " " << theta << std::endl;
 		return 0.;
+	}
 }
 
 double pdf::get_likelihood(double theta) {
-	std::cout << "curr: " << theta << std::endl;
-	set_parameter(theta);
+	// returns the value of the likelihood function for a given theta
+	// assumes that a sample has already been generated
+	//std::cout << "curr: " << theta << std::endl;
        	double llh = 1.0;
        	for(int i=0; i<sample.size(); i++) {
-		std::cout << " ** " << sample.at(i) << " " << get_pdf(sample.at(i)) << std::endl;
-		llh*=get_pdf(sample.at(i));
+		//std::cout << " ** " << sample.at(i) << " " << get_pdf(sample.at(i), theta) << std::endl;
+		llh*=get_pdf(sample.at(i), theta);
 	}
 	return llh;
 }
 
-void pdf::generate_sample(int size) {
+double pdf::get_loglikelihood(double theta) {
+	// returns the logarithm of the likelihood function
+        // assumes that a sample has already been generated 
+        double logllh = 0.0;
+        for(int i=0; i<sample.size(); i++) { 
+		//std::cout << sample.at(i) << " ";
+		if(get_pdf(sample.at(i), theta)==0)
+			std::cout << "WTF " << sample.at(i) << " " << theta << " ++++++++++++++++++++++++" <<std::endl;
+                logllh+=log(get_pdf(sample.at(i), theta));
+        }
+	//std::cout << std::endl;
+	std::cout << logllh << std::endl;
+        return logllh;
+}
+
+void pdf::generate_sample(int size, double theta) {
 	static unsigned int calls = 0; // use as seed for generator
 	calls++; // ensures unique seed in every call
-
-	if(!init) {
-		std::cout << "*** please initialize parameters first!";
-		exit(1);
-	}
-
+	std::cout << calls << std::endl;
 	sample.clear();
-	boost::uniform_real<> unif(x_low, x_high);
+	boost::uniform_real<> unif(theta, theta * theta);
+	calls = 24;
 	boost::random::mt19937 gen(calls);
 	boost::variate_generator< boost::random::mt19937&, boost::uniform_real<> > sampler(gen, unif);
-	for(int i=0;i<size;i++)
+	for(int i=0;i<size;i++) {
 		sample.push_back(sampler());
+	}
 }
