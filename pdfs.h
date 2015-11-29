@@ -10,19 +10,19 @@
 // wrapper around pdf + sampler
 class pdf {
 	public:		
-		pdf(double low, double high); 
-		double x_low; // lower bound of sample space
-		double x_high; // upper bound of sample space
-		double par_value; // parameter value (theta)
-		double par_high; // parameter space bounds
-		double par_low; // parameter space bounds
+		pdf(long double low, long double high); 
+		long double x_low; // lower bound of sample space
+		long double x_high; // upper bound of sample space
+		long double par_value; // parameter value (theta)
+		long double par_high; // parameter space bounds
+		long double par_low; // parameter space bounds
 
-		std::vector<double> sample;
-		void generate_sample(int size, double theta);
-		void set_parameter(double val);
-		double get_pdf(double x, double theta);
-		double get_likelihood(double theta);
-		double get_loglikelihood(double theta);
+		std::vector<long double> sample;
+		void generate_sample(int size, long double theta);
+		void set_parameter(long double val);
+		long double get_pdf(long double x, long double theta);
+		long double get_likelihood(long double theta);
+		long double get_loglikelihood(long double theta);
 };
 
 		
