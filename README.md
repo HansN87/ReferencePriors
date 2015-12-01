@@ -1,4 +1,4 @@
-calculates the reference priors for Examples 10 and 11 of [1] following the numerical recipe described in [1].
+Calculates the reference priors for examples 10 and 11 of [1] following the numerical recipe described in [1].
 
 Example 10: unif(theta, theta^2), cf. Fig 1. [1]
 
