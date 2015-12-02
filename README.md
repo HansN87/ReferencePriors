@@ -2,7 +2,7 @@ Calculates the reference priors for examples 10 and 11 of [1] following the nume
 
 Example 10: unif(theta, theta^2), cf. Fig 1. [1]
 
-Example 11: triangle pdf(theta) on (0,1), cf. Fig 2. [1] 
+Example 11: triangular pdf(theta) on (0,1), cf. Fig 2. [1] 
 
 
 Ref:
