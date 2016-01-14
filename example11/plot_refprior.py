@@ -43,7 +43,7 @@ fig.suptitle('reference prior for triangle(theta) on (0,1)', fontsize=18)
 
 leg = ax.legend(bbox_to_anchor=[0.87, 0.95], loc='upper right', prop={'size':16}, ncol=2, fancybox=True)
 
-plt.savefig("refprior.pdf")
+plt.savefig("refprior.png")
            
           
          

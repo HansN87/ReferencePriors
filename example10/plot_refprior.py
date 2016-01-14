@@ -44,7 +44,7 @@ fig.suptitle('reference prior for unif($\\theta$,$\\theta^2$)', fontsize=18)
 
 plt.legend()
 
-plt.savefig("refprior.pdf")
+plt.savefig("refprior.png")
            
           
          
